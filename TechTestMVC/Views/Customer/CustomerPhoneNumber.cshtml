@@ -1,0 +1,26 @@
+﻿@model IEnumerable<TechTestMVC.Models.CustomerPhoneNumber>
+@{
+    ViewBag.Title = "Customer Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @if (ViewContext.RouteData.Values["action"].ToString() == "GetCustomerIdWithPhoneNumber"){
+    <b>All customer’s IDs and associated phone numbers</b>
+    }
+    else{
+    <b>
+        The number of valid phone numbers per state, displayed in ascending alphabetical
+        order
+    </b>
+    }
+    <br />
+    <div>
+        @foreach (var item in Model)
+        {
+            <p>
+                @(item.PhoneNumber)
+            </p>
+        }
+    </div>
+
+</div>
