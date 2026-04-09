@@ -35,5 +35,14 @@ namespace TechTestMVC.Services
         /// <param name="customerDetails"></param>
         /// <returns>list of phone numbers group by state</returns>
         IEnumerable<CustomerPhoneNumber> GetValidPhoneNumbersByState(IEnumerable<Customer> customerDetails);
+
+        /// <summary>
+        /// Generates numbers from 1 to 100, retrieves even numbers using LINQ, 
+        /// and identifies numbers divisible by 3 or 5 (but not both), 
+        /// </summary>
+        /// <returns>returning the results as a tuple</returns>
+        (List<int> EvenNumbers, List<int> DivisibleNumbers) GetNumbers();
+
+        (bool FirstEventScheduled, bool SecondEventScheduled, bool Cancelled, List<Event> Events) RunTask2();
     }
 }
