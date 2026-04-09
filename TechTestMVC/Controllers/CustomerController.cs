@@ -14,11 +14,9 @@ namespace TechTestMVC.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerService _customerService;
-        private readonly IEventScheduler _scheduler;
         public CustomerController(ICustomerService customerService, IEventScheduler scheduler)
         {
             this._customerService = customerService;
-            _scheduler = scheduler;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
