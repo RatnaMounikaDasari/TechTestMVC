@@ -28,6 +28,7 @@ namespace TechTestMVC
            
             services.AddMvc();
             services.AddSingleton<ICustomerService, CustomerService>();
+            services.AddSingleton<IEventScheduler, EventScheduler>();
 
             services.AddSingleton<ICustomerRepository, CustomerRepository>();
         }

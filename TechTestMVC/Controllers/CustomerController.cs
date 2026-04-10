@@ -31,13 +31,13 @@ namespace TechTestMVC.Controllers
                 if (customerInfo != null)
                 {
                     //Get All Customer's first names (comma separated) who are 56.
-                   string custFirstNames = _customerService.GetCustomerFirstNameByAge(customerInfo);
+                    string custFirstNames = _customerService.GetCustomerFirstNameByAge(customerInfo);
                     customerNames = new CustomerViewModel()
                     {
                         Name = custFirstNames
                     };
                 }
-                return View("Index",customerNames);
+                return View("Index", customerNames);
             }
             catch (Exception ex)
             {
@@ -49,10 +49,11 @@ namespace TechTestMVC.Controllers
         public async Task<IActionResult> GetCustomerIdWithPhoneNumber()
         {
             IEnumerable<Customer> customerInfo, customerDetails = new List<Customer>();
-            IEnumerable<CustomerPhoneNumber> CustomerIDWithPhone=null;
-            try {
-              
-                
+            IEnumerable<CustomerPhoneNumber> CustomerIDWithPhone = null;
+            try
+            {
+
+
                 //Get Customer Data from Api
                 customerInfo = await _customerService.GetCustomerData();
                 if (customerInfo != null)
@@ -69,7 +70,7 @@ namespace TechTestMVC.Controllers
                 }
                 return View("CustomerPhoneNumber", CustomerIDWithPhone);
             }
-            catch(Exception ex) { throw; }
+            catch (Exception ex) { throw; }
         }
 
         [HttpGet]
@@ -94,6 +95,30 @@ namespace TechTestMVC.Controllers
                 return View("CustomerPhoneNumber", CustomerByState);
             }
             catch (Exception ex) { throw; }
+        }
+
+
+
+        [HttpGet]
+        public IActionResult RunAllTests()
+        {
+            //Task1
+            var data = _customerService.GetNumbers();
+
+            //Task2
+            var result = _customerService.RunTask2();
+
+            var model = new TestResultViewModel
+            {
+                EvenNumbers = data.EvenNumbers,
+                DivisibleNumbers = data.DivisibleNumbers,
+                FirstEventScheduled = result.FirstEventScheduled,
+                SecondEventScheduled = result.SecondEventScheduled,
+                Cancelled = result.Cancelled,
+                RemainingEvents = result.Events
+            };
+
+            return View(model);
         }
     }
 }

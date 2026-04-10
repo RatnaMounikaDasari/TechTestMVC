@@ -1,0 +1,75 @@
+﻿@model TechTestMVC.Models.TestResultViewModel
+
+<h1>Test Results</h1>
+
+<hr />
+
+<h2>Task 1: Number Processing</h2>
+
+<h3>Even Numbers (1–100)</h3>
+<p>@string.Join(", ", Model.EvenNumbers)</p>
+
+<h3>Numbers Divisible by 3 or 5 (but not both)</h3>
+<p>@string.Join(", ", Model.DivisibleNumbers)</p>
+
+<hr />
+
+<h2>Task 2: Event Scheduler</h2>
+
+<h3>Double Booking Test</h3>
+<p>
+    <strong>First Event Scheduled:</strong> @Model.FirstEventScheduled
+</p>
+<p>
+    <strong>Second Event Scheduled (should be FALSE):</strong> @Model.SecondEventScheduled
+</p>
+<p style="color:gray;">
+    (If second is FALSE → double-booking prevention is working)
+</p>
+
+<h3>Cancel Event Test</h3>
+<p>
+    <strong>Cancelled Successfully:</strong> @Model.Cancelled
+</p>
+
+<hr />
+
+<h3>Remaining Events (Persistence Check)</h3>
+
+@if (Model.RemainingEvents != null && Model.RemainingEvents.Any())
+{
+    <table border="1" cellpadding="8" cellspacing="0">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Date & Time</th>
+        </tr>
+
+        @foreach (var e in Model.RemainingEvents)
+        {
+            <tr>
+                <td>@e.Name</td>
+                <td>@e.Location</td>
+                <td>@e.DateTime</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No upcoming events</p>
+}
+
+<p style="color:gray;">
+    Events are stored in <strong>events.json</strong> and reloaded on application restart.
+</p>
+
+<hr />
+
+<h3>How to Verify Persistence</h3>
+<ol>
+    <li>Run this page and confirm events are listed</li>
+    <li>Stop the application</li>
+    <li>Run the application again</li>
+    <li>Open this page again — events should still be present</li>
+</ol>

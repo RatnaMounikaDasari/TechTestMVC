@@ -119,6 +119,36 @@ namespace TechTestMVC.Tests.Validation
             Assert.NotNull(result);
             result.Should().BeOfType<Task<IActionResult>>();
         }
+        [Fact]
+        public void CustomerController_RunAllTests_Returns_View()
+        {
+            // Arrange
+            var numbersData = (
+                EvenNumbers: new List<int> { 2, 4 },
+                DivisibleNumbers: new List<int> { 3, 5 }
+            );
+
+            var task2Data = (
+                FirstEventScheduled: true,
+                SecondEventScheduled: false,
+                Cancelled: true,
+                Events: new List<Event>()
+            );
+
+            A.CallTo(() => _customerService.GetNumbers()).Returns(numbersData);
+            A.CallTo(() => _customerService.RunTask2()).Returns(task2Data);
+
+            // Act
+            var result = _customerController.RunAllTests();
+
+            // Assert
+            Assert.NotNull(result);
+
+            result.Should().BeAssignableTo<ViewResult>();
+
+            var viewResult = result as ViewResult;
+            Assert.NotNull(viewResult);
+        }
 
     }
 }
